@@ -1,0 +1,71 @@
+#!/usr/bin/env bash
+
+# Creates certificate (with mkcert) for local webserver https from dirs in ~/Sites
+mklocalcert() {
+  # Check for mkcert
+  command -v mkcert >/dev/null 2>&1 || { echo >&2 "!! I require mkcert but it's not installed.  Aborting."; return 1; }
+
+  local sites_dir=$HOME/Sites
+  local certs_dir=$(brew --prefix)/etc/httpd/crt
+  local tld='test'
+
+  # Add localhost, loopback and interface IP addresses to SAN array
+  local subj_alt_names=( 'localhost' '127.0.0.1' '::1' `ipconfig getifaddr en0` `ipconfig getifaddr en1`)
+
+  # Add dir names in $sites_dir to SAN array, appending the $tld to each.
+  for d in $sites_dir/*; do 
+    [ -d $d ] && subj_alt_names+=("${d##*/}.$tld");
+  done
+
+  # if $certs_dir doesn't exist, create it
+  [ -e $certs_dir ] || mkdir -pv -m 755 $certs_dir;
+  
+  # Create cert and key files in $certs_dir 
+  mkcert -cert-file $certs_dir/server.pem -key-file $certs_dir/server-key.pem ${subj_alt_names[@]};
+  
+  return 0;
+}
+
+# `mksite my-new-site` Creates new site in ~/Sites, adds it to SAN cert for local webserver https
+mksite() {
+# Check for mkcert
+command -v mkcert >/dev/null 2>&1 || { echo >&2 "!! I require mkcert but it's not installed.  Aborting."; return 1; }
+
+local new_site_path=$HOME/Sites/"$1"
+
+# Abort if $new_site_path already exists
+[ ! -e $new_site_path ] || { echo "!! Site $new_site_path already exists.  Aborting."; return 1; }
+
+# Create dir for new site 
+mkdir -pv -m 755 $new_site_path;
+
+# Create a basic HTML5 index page
+bash -c "cat << EOF > $new_site_path/index.html 
+<!DOCTYPE html>
+<html lang=\"en\">
+  <head>
+    <meta charset=\"utf-8\">
+    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">
+    <title>$1</title>
+  </head>
+  <body>
+    <h1>New Site $1</h1>
+  </body>
+</html>
+EOF";
+
+echo "Created site directory at $new_site_path";
+
+# Update certs with new site dir
+echo "Updating server certificate SANs...";
+mklocalcert;
+echo "Done!";
+return 0;
+}
+
+# List processes listening on network with protocol, address, port, pid, [file]name
+netchk() {
+  netstat -Watnlv | grep LISTEN | awk '{"ps -o comm= -p " $9 | getline procname;colred="\033[01;31m";colclr="\033[0m"; print colred "proto: " colclr $1 colred " | addr.port: " colclr $4 colred " | pid: " colclr $9 colred " | name: " colclr procname;  }' | column -t -s "|";
+
+  return 0;
+}

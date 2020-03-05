@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+
+# GitHub Authentication (Personal access token for Homebrew)
+export HOMEBREW_GITHUB_API_TOKEN=

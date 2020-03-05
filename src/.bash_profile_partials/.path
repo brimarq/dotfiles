@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+
+## HOMEBREW PATH: Prepends /usr/local/bin:/usr/local/sbin: to the PATH variable.
+export PATH=$(echo $PATH | sed 's|/usr/local/bin||; s|/usr/local/sbin||; s|::|:|; s|^:||; s|\(.*\)|/usr/local/bin:/usr/local/sbin:\1|')
+
+# Add Visual Studio Code (code)
+export PATH="$PATH:/Applications/Visual Studio Code.app/Contents/Resources/app/bin"
+
+# Anaconda2
+# export PATH="$HOME/anaconda2/bin:$PATH"
+
+#export PATH="$HOME/.composer/vendor/bin:$PATH"
+#export PATH=$PATH:~/.nexustools
+#export PATH=$PATH:~/.mp4box
+#export PATH=$PATH:~/.lnav
