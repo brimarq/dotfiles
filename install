@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+read -r -p "Update dotfiles? [Y/n]" response;
+if [[ "$response" =~ ^([nN][oO]|[nN])+$ ]]; then
+  echo "Dotfiles update aborted.";
+	exit;
+else
+  rsync -rv --exclude=.DS_Store --exclude=.private.example src/ $HOME;
+	echo -e "\nDotfiles updated.";
+fi
