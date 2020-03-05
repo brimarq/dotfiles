@@ -8,7 +8,7 @@ WARNING: Backup your original `~/.bashrc` and `~/.bash_profile` BEFORE installin
 
 1. Clone this repo
 2. Make `./install` executable with `chmod +x ./install`
-3. Run `. ./install` 
+3. Run `./install` to install/update the dotfiles.
 4. Run `source ~/.bash_profile` to load the dotfiles.  
 
 Running `./install` will `rsync` the contents of `./src` into `$HOME`.  
