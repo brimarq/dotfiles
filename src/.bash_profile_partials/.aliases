@@ -16,6 +16,11 @@ alias dt="cd ~/Desktop"
 alias proj="cd ~/Projects"
 alias sites="cd ~/Sites"
 
+# Display all current group PrimaryGroupIDs:
+alias pgids="dscl . list /Groups PrimaryGroupID | tr -s ' ' | sort -n -t ' ' -k2,2"
+# Display all current user UniqueIDs
+alias uuids="dscl . list /Users UniqueID | tr -s ' ' | sort -n -t ' ' -k2,2"
+
 # Reload .bash-profile
 alias resource="echo 'Sourcing .bash-profile...' && source $HOME/.bash_profile && echo 'Done!'"
 
