@@ -132,4 +132,8 @@ alias dns.flushcache='sudo killall -HUP mDNSResponder;say DNS cache has been flu
 # Update Node to latest lts
 alias node-update-lts='nvm install lts/* --reinstall-packages-from=default --latest-npm'
 
+# Echo functions and description comments above
 alias funcs="echo && grep -EB1 '\w+\(\)' ~/.bash_profile_partials/.functions"
+
+# Youtube downloader 
+alias ytdl="youtube-dl -f 'bestvideo[ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best' -o '%(title)s.%(ext)s'"
