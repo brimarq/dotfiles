@@ -129,8 +129,8 @@ alias dnsmasq.restart='brew services restart dnsmasq'
 # Flush dns cache
 alias dns.flushcache='sudo killall -HUP mDNSResponder;say DNS cache has been flushed'
 
-# Update Node to latest lts
-alias node-update-lts='nvm install lts/* --reinstall-packages-from=default --latest-npm'
+# Update NVM-installed default NodeJS to latest lts
+alias nvmltsu='nvm install lts/* --reinstall-packages-from=default --latest-npm'
 
 # Echo functions and description comments above
 alias funcs="echo && grep -EB1 '\w+\(\)' ~/.bash_profile_partials/.functions"
