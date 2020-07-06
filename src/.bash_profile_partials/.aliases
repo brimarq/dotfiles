@@ -21,14 +21,14 @@ alias pgids="dscl . list /Groups PrimaryGroupID | tr -s ' ' | sort -n -t ' ' -k2
 # Display all current user UniqueIDs
 alias uuids="dscl . list /Users UniqueID | tr -s ' ' | sort -n -t ' ' -k2,2"
 
-# Reload .bash-profile
-alias resource="echo 'Sourcing .bash-profile...' && source $HOME/.bash_profile && echo 'Done!'"
+# Reload the shell (i.e. invoke as a login shell)
+alias shreload="exec ${SHELL} -l"
+
+# Reload ~/.bash-profile
+alias sourcebp="echo 'Sourcing ~/.bash-profile...' && source $HOME/.bash_profile && echo 'Done!'"
 
 # Print each PATH entry on a separate line
 alias path='echo -e ${PATH//:/\\n}'
-
-# Check network processes
-alias chknet='netchk'
 
 # Dev stuff
 alias mksecret="node --require crypto -e \"console.log(crypto.randomBytes(32).toString('hex'))\""
