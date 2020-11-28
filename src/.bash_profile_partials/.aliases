@@ -136,4 +136,6 @@ alias nvmltsu='nvm install lts/* --reinstall-packages-from=default --latest-npm'
 alias funcs="echo && grep -EB1 '\w+\(\)' ~/.bash_profile_partials/.functions"
 
 # Youtube downloader 
-alias ytdl="youtube-dl -f 'bestvideo[ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best' -o '%(title)s.%(ext)s'"
+alias ytdl="youtube-dl -f 'bestvideo[ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best' -o '~/Movies/ytdl_videos/%(title)s.%(ext)s'"
+alias ytdl.mp3="youtube-dl -x --audio-format mp3 -o '~/Music/ytdl_audio/%(title)s.%(ext)s'"
+alias ytdl.m4a="youtube-dl -x --audio-format m4a -o '~/Music/ytdl_audio/%(title)s.%(ext)s'"
